@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="report_student_detail" model="ir.action.report">
+        <field name="name">Student Detail</field>
+        <field name="model">clg.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">collage_management.report_student_detail</field>
+    </record>
+</odoo>

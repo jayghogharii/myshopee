@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="clg_professor_tree_view" model="ir.ui.view">
+      <field name="name">clg.professor.tree.view</field>
+      <field name="model">clg.professor</field>
+      <field name="arch" type="xml">
+        <tree> 
+          <field name="namee" />
+         <field name="subject" />
+        </tree>
+      </field>
+    </record>
+    <record id="clg_professor_form_view" model="ir.ui.view">
+      <field name="name">clg.professor.form.view</field>
+      <field name="model">clg.professor</field>
+      <field name="arch" type="xml">
+        <form>
+          <button type="object" class="oe_highlight" string="Approve" name="button_approved" />
+          <sheet>
+            <group>
+              <field name="namee" required="1"  placeholder="Name"/>
+              <field name="subject" placeholder="subject" />  
+            </group>
+            <notebook>
+              <page string="Student List">
+                <field name="student_lines_ids">
+                  <tree editable="bottom">  
+                      <field name="name"/>
+                      <field name="collage"/>
+                      <field name="mono"/>
+                  </tree>
+                </field>   
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+  </odoo>

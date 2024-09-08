@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="clg_department_tree_view" model="ir.ui.view">
+        <field name="name">clg.department.tree.view</field>
+        <field name="model">clg.department</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="department" />
+                <field name="batches" />   
+            </tree>
+        </field>
+    </record>
+    <record id="clg_department_form_view" model="ir.ui.view">
+        <field name="name">clg.department.form.view</field>
+        <field name="model">clg.department</field>
+        <field name="arch" type="xml">
+            <form>
+                <h1>Collage Department</h1>
+                <group>
+                    <field name="department">Department</field>
+                    <field name="batches">batches</field> 
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

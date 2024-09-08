@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="cms_management" model="ir.module.category"> 
+        <field name="name">CMS</field>
+        <field name="visible"/>
+    </record>
+
+    <record  id="recepsonist_access" model="res.groups">
+        <field name="name">Recepsonist</field>
+        <field name="category_id" ref="cms_management"/>
+    </record>
+
+    <record id="admin_access" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id" ref="cms_management"/>
+    </record>
+    
+   
+</odoo>

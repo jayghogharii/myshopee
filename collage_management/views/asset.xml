@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend" name="change_color">
+        <xpath expr="script[last()]" position="after">
+            <t t-set="navbar_background_color" t-value="request.env['ir.config.parameter'].sudo().get_value()"/>
+            <t t-set="navbar_text_color" t-value="request.env['ir.config.parameter'].sudo().get_value()"/>
+            <style>
+                .o_main_navbar{
+                    background-color: <t t-esc="navbar_background_color"/> !important;
+                    color: <t t-esc="navbar_text_color"/>!important;
+                }
+                .o_main_navbar > ul > li > a,.o_main_navbar > ul > li >label{
+                    color: <t t-esc="navbar_text_color"/>!important;
+                }
+                .o_main_navbar .show .dropdown-toggle,.o_main_navbar > ul > li{
+                    background-color: <t t-esc="navbar_background_color"/> !important;
+                }
+                .o_home_menu_background .o_main_navbar{
+                    background-color:transparent !important;
+                    border-color:transparent !important;
+                }
+                
+            </style>
+        </xpath>
+    </template>
+</odoo>

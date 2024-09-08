@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="clg_student_tree_view" model="ir.ui.view">
+    <field name="name">clg.student.tree.view</field>
+    <field name="model">clg.student</field>
+    <field name="arch" type="xml">
+      <tree> 
+       
+        <field name="name" />
+        <field name="lastname" />
+        <field name="middlename" optional="hide" />
+        <field name="passport"/>
+        <field name="gender"/>
+        <field name="birthdate"  optional="hide"/> 
+        <field name='email' />
+        <field name="city"  optional="true"/>
+        <field name="state_id"  optional="hide"/>
+        <field name="country_id"  optional="hide"/>
+        <field name="mono" />
+        <field name="department" string="Department"/>
+        <field name="collage" />
+        <field name="state" widget="badge" decoration-info="state == 'information'" decoration-warning="state == 'document'"  decoration-danger="state == 'payment'"  decoration-success="state == 'done'" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="clg_student_kanban_view" model="ir.ui.view">
+    <field name="name">clg.student.kanban.view</field>
+    <field name="model">clg.student</field>
+    <field name="arch" type="xml">
+      <kanban>
+        <templates>
+          <t t-name="kanban-box">
+            <div class="oe_kanban_global_click">
+              <div class="o_kanban_image">
+                <img alt="Avatar" t-att-src="kanban_image('clg.student', 'passport',record.id.raw_value)"/>
+              </div>   
+              <div class="o_kanban_record_content">
+                <div>
+                    <strong>Student Name : </strong><field name="name"/>
+                </div>
+                <div>
+                  <strong>Gender : </strong><field name="gender"/>
+                </div>
+                <div>
+                  <strong>Mobile Number : </strong><field name="mono"/>
+                </div>
+                <div>
+                    <strong>Department : </strong><field name="department"/>
+                </div>
+                <div>
+                    <strong>College Name : </strong><field name="collage"/>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+
+
+  <!--**************************************FORM*************************************-->
+
+  <record id="clg_student_form_view" model="ir.ui.view">
+    <field name="name">clg.student.form.view</field>
+    <field name="model">clg.student</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button name="button_document" class="oe_highlight" string="Document" invisible="state != 'information'" type="object" />
+          <button name="open_pdf_file" class="oe_highlight" string="PDF" invisible="state != 'information'" type="object" />
+          <button name="information" string="Reset to Draft" invisible="state!= 'document'"  type="object" />
+          <button name="button_payment" class="oe_highlight" string="Payment" invisible="state != 'document'" type="object" />
+          <button name="doc" string="Reset to Draft" invisible="state!= 'payment'" type="object" />
+          <!-- <button name="pay_fees" class="oe_highlight" string="pay_fees" invisible="state != 'payment'" type="object" /> -->
+          <button name="button_done" class="oe_highlight" string="Done" invisible="state != 'payment'" type="object" />
+          <button name="doc_do" string="Reset to Draft" invisible="state!= 'done'" type="object" />
+          <field name="state" widget="statusbar" statusbar_visible="information,document,payment,done" decoration-danger="state == 'done'"/>
+        </header>
+        
+        <sheet>
+          <div name="button_box" position="inside">
+            <button class="oe_stat_button" type="object" name="student_record"
+                icon="fa-user">
+                <field string="Invoice" name="record_count" widget="statinfo"/>
+            </button>
+          </div>
+          <h1>
+            <field name="name" placeholder="First Name" class="mx-2" required="1" readonly='state=="document" or state=="payment" or state=="done"' />
+            <field name="middlename" placeholder="Middle Name" class="mx-2" required="1" readonly='state=="document" or state=="payment" or state=="done"' />
+            <field name="lastname" placeholder="Last Name"  readonly='state=="document" or state=="payment" or state=="done"' />
+            <field name="passport" widget="image" class="oe_avatar"  />
+          </h1>
+          <notebook>
+            <page name="genral info" required="1"  string="General Information" type="object">
+              <group>
+                <group>
+                  <span class="o_form_label o_td_label" name="address_name">
+                    <b>Address</b>
+                  </span>
+                  <div class="o_address_format" name="div_address">
+                    <field name="street" placeholder="Street..." class="o_address_street" readonly='state=="document" or state=="payment" or state=="done"' required="1" />
+                    <field name="street2" placeholder="Street 2..." class="o_address_street" readonly='state=="document" or state=="payment" or state=="done"' required="1" />
+                    <field name="city" placeholder="City" class="o_address_city" readonly='state=="document" or state=="payment" or state=="done"'  required="1"/>
+                    <field name="state_id" class="o_address_state" placeholder="State" options="{ 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id}" readonly='state=="document"' required="1" />
+                    <field name="zip" placeholder="ZIP" class="o_address_zip" readonly='state=="document" or state=="payment" or state=="done"' />
+                    <field name="country_id" placeholder="Country" class="o_address_country" readonly='state=="document"' required="1"/>
+                  </div>
+                  <field name="collage" placeholder="Collage..." readonly='state=="document" or state=="payment" or state=="done"' required="1" />
+                  <field name="department" placeholder="mca/bca/mba....." readonly='state=="document" or state=="payment" or state=="done"' required="1" />
+                </group>
+                <group>
+                  <field name="gender" readonly='state=="document"' required="1">Gender </field>
+                  <field name="birthdate" placeholder="DD/MM/YYYY" readonly='state=="document"' required="1">DOB</field>
+                  <field name="email" colspan="2" placeholder="example@gmail.com" readonly='state=="document"' required="1">Email</field>
+                  <field name="mono" placeholder="123456789" readonly='state=="document"' required="1">Mobile No</field>
+                  <field name="partner_id">Customer</field>
+                  <field name="namee"></field>
+                </group>
+              </group>
+            </page>
+            <page name="document" string="Documents" type="object">
+              <group>
+                <group>
+                <field name="aadhar_card" widget="image" class="oe_avatar">Adhar Card</field>
+                <field name="pan_card" widget="image" class="oe_avatar" >Pan Card</field>
+                </group>
+                <group><field name="marksheet_10th" widget="image" class="oe_avatar" >10th Marksheet</field>
+                <field name="marksheet_12th" widget="image" class="oe_avatar" />
+                </group>
+              </group>
+            </page>
+            <page name="Payment" string="Fees">
+              <group>
+                
+                <field name="product_id" />
+                <field name="fess" /> 
+
+              </group>
+            </page>
+          </notebook>
+          <!-- <button name="submit_form" string="Submit" type="object"/>  -->
+          <div class="oe_chatter">
+            <field name="message_follower_ids"/>
+            <field name="activity_ids"/>
+            <field name="message_ids"/>
+          </div>
+        </sheet>
+
+      </form>
+    </field>
+  </record>
+  
+  <record id="clg_student_search_view" model="ir.ui.view">
+    <field name="name">clg.student.search.view</field>
+    <field name="model">clg.student</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name"/>
+        <field name="lastname"/> 
+        <field name="department" />
+        <field name="mono" />
+        <!-- <filter string="Department" name="department" domain="[('department', '=',False)]"/> -->
+        <group string="Group By">
+          <filter string="Department" name="department" context="{'group_by': 'department'}"/>
+          <filter string="Gender" name="gender" context="{'group_by': 'gender'}"/>
+          <filter string="Collage" name="collage" context="{'group_by': 'collage'}"/>
+       </group>
+      </search>
+    </field>
+  </record>
+  
+  <record id="clg_student_action" model="ir.actions.act_window">
+    <field name="name">Student</field>
+    <field name="res_model">clg.student</field>
+    <field name="view_mode">kanban,tree,form,search</field>
+  </record>
+  
+  <record id="clg_add_action" model="ir.actions.act_window">
+    <field name="name">Add Collage</field>
+    <field name="res_model">clg.add</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <record id="clg_subject_action" model="ir.actions.act_window">
+    <field name="name">Subject</field>
+    <field name="res_model">clg.subject</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  
+  <record id="clg_department_action" model="ir.actions.act_window">
+    <field name="name">Department</field>
+    <field name="res_model">clg.department</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+  
+  <record id="clg_professor_action" model="ir.actions.act_window">
+    <field name="name">professor</field>
+    <field name="res_model">clg.professor</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <record id="information" model="ir.actions.act_window">
+    <field name="name">information</field>
+    <field name="res_model">general.information</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="clg_student_root_menu" name="CMS" />
+  
+  <menuitem id="clg_student_sub1_root_menu" action="clg_student_action" name="Admission" parent="clg_student_root_menu"/>
+
+  <menuitem id="clg_student_sub3_root_menu" action="clg_professor_action" name="Professor" parent="clg_student_root_menu" groups="admin_access"/>
+  
+  <menuitem id="clg_add_menu" action="clg_add_action" name="Collage" parent="clg_student_sub2_root_menu" sequence="1" />
+  
+  <menuitem id="clg_department_menu" action="clg_department_action" name="Department" parent="clg_student_sub2_root_menu" sequence="2" />
+
+  <menuitem id="clg_subject_menu" action="clg_subject_action" name="Subject" parent="clg_student_root_menu" sequence="3" />
+
+  <menuitem id="clg_student_sub5_root_menu" name="Professor" parent="clg_student_root_menu" />
+
+  <menuitem id="clg_student_sub4_root_menu"  action="information" name="Information" parent="clg_student_root_menu" groups="admin_access" />
+
+  <menuitem id="clg_student_sub2_root_menu" action="clg_student_action" name="Configuration" parent="clg_student_root_menu" groups="admin_access"/>
+  
+</odoo>

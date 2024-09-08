@@ -1,0 +1,40 @@
+<odoo>
+    <record id="clg_admission_form_view" model="ir.ui.view">
+        <field name="name">clg.admission.form.view</field>
+        <field name="model">clg.admission</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_information" string="Information" type="object" class="oe_highlight"/>
+                    <button name="button_document" string="Document" type="object" class="oe_highlight"/>
+                    <button name="button_fees" string="Fees" type="object" class="oe_highlight"/>
+                </header>
+                <notebook>
+                    <page string="Information">
+                        <group>
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="address"/>
+                        </group>
+                    </page>
+                    <page string="Documents">
+                        <field name="document_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="attachment" widget="binary"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Fees">
+                        <group>
+                            <field name="fees"/>
+                        </group>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="button_done" string="Done" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

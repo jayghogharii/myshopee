@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="send_mail_reminder" model="ir.cron">
+            <field name="name">Student Folloup Reminder</field>
+            <field name="active" eval="True" />
+            <field name="priority">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="interval_number">1</field>
+            <field name="model_id" ref="model_send_mail_reminder_admin" />
+            <field name="state">code</field>
+            <field name="code">model.send_mail_alert()</field>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_clg_student,clg.student,model_clg_student,,1,1,1,1
+access_clg_department,clg.department,model_clg_department,,1,1,1,1
+access_clg_add,clg.add,model_clg_add,,1,1,1,1
+access_clg_subject,clg.subject,model_clg_subject,,1,1,1,1
+access_clg_professor,clg.professor,model_clg_professor,,1,1,1,1
+access_clg_studentlines,clg.studentlines,model_clg_studentlines,,1,1,1,1
+access_clg_admission,clg.admission,model_clg_admission,,1,1,1,1
+access_payment_wizard,payment.wizard,model_payment_wizard,,1,1,1,1
+access_payment_invoice,payment.invoice,model_payment_invoice,,1,1,1,1
+access_send_mail_reminder_admin,send.mail.reminder.admin,model_send_mail_reminder_admin,,1,1,1,1
+access_general_information,general.information,model_general_information,,1,1,1,1
+
+
+

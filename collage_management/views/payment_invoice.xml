@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_payment_invoice_form" model="ir.ui.view">
+        <field name="name">payment invoice</field>
+        <field name="model">payment.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Your invoice Form">
+                <group>
+                    <field name="partner_id" />
+                    <!-- Add other fields here -->
+                </group>
+                <!-- <footer>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
+                    <button name="discard" string="Discard" type="object" class="btn-primary"/>
+                </footer> -->
+            </form>
+        </field>
+    </record>
+    <record id="payment_invoice" model="ir.actions.act_window">
+        <field name="name">payment invoice</field>
+        <field name="res_model">payment.invoice</field>
+        <field name="view_mode">form</field>
+    </record>
+</odoo>
